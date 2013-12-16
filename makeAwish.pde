@@ -92,8 +92,6 @@ void playWish() {
     dimmers[i] = dimmers[i - 1];
     dimmers[0] = int(valor);
   }
-  
-  
 }
 
 void playRandom() {
@@ -102,21 +100,27 @@ void playRandom() {
   int n = int(noise(yoff) * N);
   dimmers[n] += 20;
 
-  for (int i = 0; i < N; i ++){
+  for (int i = 0; i < N; i ++) {
     dimmers[i] -= 1;
     dimmers[i] = constrain(dimmers[i], 0, 255);
   }
 }
 void playRandom2() {
-  for (int i = 0; i < N; i ++){
+  for (int i = 0; i < N; i ++) {
     dimmers[i] = int(map(noise(i, yoff), 0, 1, 0, 255));
   }
   yoff = yoff + 0.01;
 }
 
 void playRandom3() {
-  for (int i = 0; i < N; i ++){
+  for (int i = 0; i < N; i ++) {
     dimmers[i] = int(abs(sin(yoff * i ) * 255));
   }
   yoff = yoff + 0.005;
 }
+
+void keyPressed() {
+  player.rewind();    
+  player.play();
+}
+
