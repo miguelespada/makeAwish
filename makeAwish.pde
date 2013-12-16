@@ -13,6 +13,7 @@ boolean idle = false;
 float valor;
 Minim minim;
 AudioInput in;
+AudioPlayer player;
 int lastActivity = 0;
 float yoff = 0;
 
@@ -21,6 +22,7 @@ void setup() {
   background(0);
   dimmers = new int[N]; 
   minim = new Minim(this);
+  player = minim.loadFile("Bell.mp3");
   in = minim.getLineIn(Minim.STEREO, 512);
   frameRate(30);
 
@@ -90,6 +92,8 @@ void playWish() {
     dimmers[i] = dimmers[i - 1];
     dimmers[0] = int(valor);
   }
+  
+  
 }
 
 void playRandom() {
