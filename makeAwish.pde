@@ -3,10 +3,10 @@ import processing.serial.*;
 
 DMX dmx;
 
-int N = 28;
+int N = 32;
 int dimmers[];
-int ganancia = 255;
-int M = 255;
+int ganancia = 175;
+int M =  255;
 boolean connected = false;
 import ddf.minim.*;
 boolean idle = false;
@@ -22,7 +22,7 @@ void setup() {
   background(0);
   dimmers = new int[N]; 
   minim = new Minim(this);
-  player = minim.loadFile("Bell.mp3");
+  //player = minim.loadFile("Bell.mp3");
   in = minim.getLineIn(Minim.STEREO, 512);
   frameRate(30);
 
@@ -34,7 +34,7 @@ boolean connectDMX() {
 
     if (Serial.list()[i].contains("EN0")) {
       String portName = Serial.list()[i];
-      dmx = new DMX(this, portName, 115200, 28);
+      dmx = new DMX(this, portName, 115200, 32);
       println("Openning... " + portName);
       return true;
     }
@@ -63,13 +63,13 @@ void draw() {
     if (frameCount - lastActivity > 100) {
       idle = true;
     }
-    idle = true;
-    if (frameCount % 2== 0) {
+    idle = false;
+    if (frameCount % 1== 0) {
       if (!idle) {
         playWish();
       }
       else {
-        playRandom3();
+        playRandom();
       }
     }
 
@@ -88,11 +88,15 @@ void draw() {
 }
 
 void playWish() {
-  for (int i = N - 1; i > 0; i --) {
+  for (int i = N - 1; i > 4; i --) {
     dimmers[i] = dimmers[i - 1];
-    dimmers[0] = int(valor);
+    dimmers[4] = int(valor);
   }
-  
+  dimmers[1] = dimmers[N - 1];
+//    for (int i = 0; i < N - 1; i ++) {
+//    dimmers[i] = dimmers[i + 1];
+//    dimmers[N - 1] = int(valor);
+//  }
   
 }
 
